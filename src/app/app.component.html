@@ -1,0 +1,10 @@
+<mat-toolbar color="primary">
+  <span>Firestore Emulator Browser</span>
+</mat-toolbar>
+<form class="example-form" [formGroup]="collectionForm" (ngSubmit)="onSubmit(collectionForm)">
+  <mat-form-field class="example-full-width">
+    <input matInput placeholder="Collection Name" formControlName="colName">
+  </mat-form-field>
+  <button mat-raised-button color="secondary" type="submit">Get Collection</button>
+</form>
+{{data}}
