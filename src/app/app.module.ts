@@ -1,12 +1,14 @@
 import { NgModule } from '@angular/core';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule, FirestoreSettingsToken } from '@angular/fire/firestore';
-import { MatToolbarModule, MatInputModule, MatButtonModule } from '@angular/material';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatButtonModule, MatIconModule, MatInputModule, MatToolbarModule } from '@angular/material';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AceEditorModule } from 'ng2-ace-editor';
+import { NgxJsonViewerModule } from 'ngx-json-viewer';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -20,14 +22,15 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     AppRoutingModule,
     BrowserAnimationsModule,
     AngularFireModule.initializeApp({
-      projectId: 'project ID'
+      projectId: 'Project ID'
     }),
-    AngularFirestoreModule.enablePersistence({
-      synchronizeTabs: true
-    }),
+    AngularFirestoreModule,
     MatToolbarModule,
     MatInputModule,
     MatButtonModule,
+    AceEditorModule,
+    MatIconModule,
+    NgxJsonViewerModule
   ],
   providers: [{
     provide: FirestoreSettingsToken,

@@ -1,13 +1,16 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Subscription } from 'rxjs';
+
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
+
+
 export class AppComponent implements OnInit, OnDestroy {
 
   //#region Mandatory Clean up items
@@ -16,9 +19,13 @@ export class AppComponent implements OnInit, OnDestroy {
    */
   private arrSubscriptions$ = [] as Subscription[];
   //#endregion
+
   //#region Variables
-  private data: any;
+
+  private html = '';
   private collectionForm: FormGroup;
+  private someObject;
+
   //#endregion
   //#region Constructor
   constructor(
@@ -29,11 +36,13 @@ export class AppComponent implements OnInit, OnDestroy {
       colName: ''
     });
   }
+
   //#endregion
   //#region Implements
   ngOnInit(): void {
 
   }
+
   ngOnDestroy(): void {
     // Clearing All Angular Subscriptions made
     for (const item of this.arrSubscriptions$) {
@@ -41,16 +50,34 @@ export class AppComponent implements OnInit, OnDestroy {
     }
   }
   //#endregion
+
   //#region Methods
+
   onSubmit(customerData: FormGroup) {
     // Clearing All Angular Subscriptions made
     for (const item of this.arrSubscriptions$) {
       item.unsubscribe();
     }
     const colName = customerData.value.colName;
-    this.arrSubscriptions$.push(this.angularFirestore.collection(colName).valueChanges().subscribe(dbData => {
-      this.data = JSON.stringify(dbData);
+    this.arrSubscriptions$.push(this.angularFirestore.collection(colName).get().subscribe(dbData => {
+      const dbResult = dbData.docs.map(a => {
+        const data = a.data();
+        const id = a.id;
+        return { [id]: data };
+      });
+      this.someObject = dbResult;
     }));
+  }
+  get code() {
+    return JSON.stringify(this.someObject, null, 2);
+  }
+
+  set code(v) {
+    try {
+      this.someObject = JSON.parse(v);
+    } catch (e) {
+      console.log('error occored while you were typing the JSON');
+    }
   }
   //#endregion
 }

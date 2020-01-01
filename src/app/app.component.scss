@@ -1,0 +1,33 @@
+.content {
+  position: relative;
+  padding: 0;
+  margin: 0;
+  height: 100%;
+  width: 100%;
+  overflow: auto;
+
+  mat-toolbar {
+    position: fixed;
+    height: 55px;
+    z-index: 10;
+  }
+
+  .container-fluid {
+    position: relative;
+    top: 55px;
+    height: calc(100% - 55px);
+
+    .collection-btn {
+      position: fixed;
+      height: 66px;
+      z-index: 10;
+    }
+
+    .collection {
+      position: relative;
+      height: calc(100% - 66px);
+      top: 66px;
+      overflow: auto;
+    }
+  }
+}

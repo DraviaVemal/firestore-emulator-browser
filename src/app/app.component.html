@@ -1,10 +1,34 @@
-<mat-toolbar color="primary">
-  <span>Firestore Emulator Browser</span>
-</mat-toolbar>
-<form class="example-form" [formGroup]="collectionForm" (ngSubmit)="onSubmit(collectionForm)">
-  <mat-form-field class="example-full-width">
-    <input matInput placeholder="Collection Name" formControlName="colName">
-  </mat-form-field>
-  <button mat-raised-button color="secondary" type="submit">Get Collection</button>
-</form>
-{{data}}
+<div class="content">
+  <mat-toolbar color="primary">
+    <span>Firestore Emulator Browser</span>
+  </mat-toolbar>
+  <div class="container-fluid">
+    <div class="row collection-btn">
+      <form class="example-form" [formGroup]="collectionForm" (ngSubmit)="onSubmit(collectionForm)">
+        <div class="col">
+          <table class="table">
+            <tr>
+              <th>
+                <mat-form-field class="example-full-width">
+                  <input matInput placeholder="Collection Name" formControlName="colName">
+                </mat-form-field>
+              </th>
+              <th>
+                <button mat-raised-button color="secondary" type="submit">Get Collection</button>
+              </th>
+            </tr>
+          </table>
+        </div>
+      </form>
+    </div>
+    <div class="row collection">
+      <div class="col-6">
+        <ngx-json-viewer *ngFor="let org of someObject" [json]="org" [expanded]="false"></ngx-json-viewer>
+      </div>
+      <div class="col-6">
+        <ace-editor [(text)]="code" [autoUpdateContent]="true" [durationBeforeCallback]="1000" mode="json"
+          style="height:400px;"></ace-editor>
+      </div>
+    </div>
+  </div>
+</div>
