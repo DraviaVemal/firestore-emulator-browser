@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Subscription } from 'rxjs';
+import { firestore } from 'firebase';
 
 
 @Component({
@@ -25,6 +26,7 @@ export class AppComponent implements OnInit, OnDestroy {
   private html = '';
   private collectionForm: FormGroup;
   private someObject;
+  private collt;
 
   //#endregion
   //#region Constructor
@@ -59,6 +61,8 @@ export class AppComponent implements OnInit, OnDestroy {
       item.unsubscribe();
     }
     const colName = customerData.value.colName;
+    this.collt = ' - ' + colName;
+    this.collectionForm.reset();
     this.arrSubscriptions$.push(this.angularFirestore.collection(colName).get().subscribe(dbData => {
       const dbResult = dbData.docs.map(a => {
         const data = a.data();
